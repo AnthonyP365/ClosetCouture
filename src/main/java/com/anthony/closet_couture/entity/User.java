@@ -1,5 +1,6 @@
 package com.anthony.closet_couture.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,12 +12,14 @@ public class User {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<ClothingItem> clothingItems;
 
     public User() {}
-    public User(String name) {
+    public User(String name, List<ClothingItem> clothingItems) {
         this.name = name;
+        this.clothingItems = clothingItems;
     }
 
     public Long getId() {

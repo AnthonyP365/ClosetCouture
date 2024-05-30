@@ -1,5 +1,6 @@
 package com.anthony.closet_couture.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +10,9 @@ public class ClothingItem {
     private Long id;
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     public ClothingItem() {}
